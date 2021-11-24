@@ -3,6 +3,8 @@ package org.bin.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bin.example.utils.CommonUtils;
+
 /**
  * 泛型示例
  *
@@ -18,15 +20,15 @@ public class GenericsTypesDemo {
     public static void main(String[] args) {
 
         System.out.println("----------------------------------- GenericsTypesDemo -----------------------------------");
-        printByConcreteElement();
+        //printByConcreteElement();
         demo2();
-        demo3();
-        demo4();
-        demo5();
+        //demo3();
+        //demo4();
+        //demo5();
 
         //Print<Object> print = new PrintObj();
         //PrintObj<Object> print1 = new PrintObj<>();
-        //print1.probj();
+        //print1.printObj();
 
     }
 
@@ -57,7 +59,13 @@ public class GenericsTypesDemo {
 
     private static void demo2() {
         ArrayList<String> list1 = new ArrayList<>();
+        list1.add("1");
+        list1.add("2");
+
         ArrayList<Integer> list2 = new ArrayList<>();
+        list2.add(1);
+        list2.add(2);
+
         PRINTER.printArrayList(list1, "3");
         PRINTER.printArrayList(list2, 3);
     }
@@ -136,14 +144,31 @@ public class GenericsTypesDemo {
 
 class Printer {
 
-    public <T extends ArrayList<E>, E> void printArrayList(T inputArray, E e) {
+    public <T extends ArrayList<E>, E> void printArrayList(T arrayList, E input) {
+        System.out.println("input：" + input + "，type：" + input.getClass().toString());
+        System.out.println();
+        int index = 0;
+        for (E element : arrayList) {
+            System.out.printf("arrayList[%d]=%s", index, element);
+            System.out.println();
+            System.out.println("String equals：" + "2".equals(element));
+            System.out.println("Object equals：" + element.equals("2"));
 
-        System.out.println(e);
+            // 先进行类型判断，确保转换安全
+            if (element instanceof String) {
+                System.out.println("String contentEquals：" + ((String) element).contentEquals("2"));
+            }
 
-        for (E i : inputArray) {
-            System.out.println(i);
-            //System.out.println("a".contentEquals(i));
+            if (element instanceof Integer) {
+                System.out.println("Integer compareTo：" + ((Integer) element).equals(2));
+
+                //自动拆箱
+                System.out.println((Integer) element == 2);
+            }
+            index++;
+            System.out.println();
         }
+        System.out.print(CommonUtils.NEW_LINE + CommonUtils.NEW_LINE + CommonUtils.NEW_LINE);
     }
 
     public <T extends List<E>, E> void printPersonList(T list) {
@@ -282,7 +307,7 @@ class Print<T> extends A<T> {
 class PrintObj<T> extends Print<Object> {
 
     /**
-     * 如果父类没有无参构造方法，必须在显示在自己的构造方法中以super(i...)方式显示创建一个构造方法
+     * 构造方法：如果父类没有无参构造方法，必须在显示在自己的构造方法中以super(i...)方式显示创建一个构造方法
      */
     public PrintObj() {
         // 只能继承一个父类的构造方法放在首行
@@ -292,7 +317,10 @@ class PrintObj<T> extends Print<Object> {
         //super("1", 1);
     }
 
-    public void probj(){
+    /**
+     * 普通方法
+     */
+    public void printObj() {
         System.out.println("666");
     }
 }
