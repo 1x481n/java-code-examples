@@ -21,8 +21,8 @@ public class GenericsTypesDemo {
 
         System.out.println("----------------------------------- GenericsTypesDemo -----------------------------------");
         //printByConcreteElement();
-        demo2();
-        //demo3();
+        //demo2();
+        demo3();
         //demo4();
         //demo5();
 
@@ -146,7 +146,7 @@ class Printer {
 
     public <T extends ArrayList<E>, E> void printArrayList(T arrayList, E input) {
         System.out.println("input：" + input + "，type：" + input.getClass().toString());
-        System.out.println();
+        //System.out.println();
         int index = 0;
         for (E element : arrayList) {
             System.out.printf("arrayList[%d]=%s", index, element);
@@ -166,9 +166,10 @@ class Printer {
                 System.out.println((Integer) element == 2);
             }
             index++;
-            System.out.println();
+            //System.out.println();
         }
-        System.out.print(CommonUtils.NEW_LINE + CommonUtils.NEW_LINE + CommonUtils.NEW_LINE);
+        //System.out.print(CommonUtils.NEW_LINE + CommonUtils.NEW_LINE + CommonUtils.NEW_LINE);
+        System.out.print(CommonUtils.lines(3));
     }
 
     public <T extends List<E>, E> void printPersonList(T list) {

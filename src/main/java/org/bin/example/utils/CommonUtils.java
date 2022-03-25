@@ -10,6 +10,23 @@ public class CommonUtils {
      */
     public final static String NEW_LINE = System.getProperty("line.separator");
 
+    /**
+     * 多个换行符
+     *
+     * @param n 换行次数
+     * @return n次换行字符串
+     */
+    public static String lines(int n) {
+        if (n == 1 || n == 0) {
+            return NEW_LINE;
+        }
+
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            buf.append(NEW_LINE);
+        }
+        return buf.toString();
+    }
 
     /**
      * 判断基本类型
